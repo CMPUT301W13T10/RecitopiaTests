@@ -4,6 +4,7 @@ package ca.teamTen.recitopia.test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import ca.teamTen.recitopia.Photo;
 import ca.teamTen.recitopia.Recipe;
 import junit.framework.TestCase;
 
@@ -29,8 +30,22 @@ public class RecipeTests extends TestCase
 		super.tearDown();
 	}
 	
-	public void testConstructor() {
+	public void testAddPhoto() {
+		assertEquals(recipe.getPhotos().length, 0);
+		recipe.addPhotos(new Photo());
+		assertEquals(recipe.getPhotos().length, 1);
+	}
+	
+	public void testGetters() {
 		assertEquals(recipe.getRecipeName(), name);
 		assertEquals(recipe.showAuthor(), author);
+		assertEquals(recipe.showCookingInstructions(), instructions);
+
+        // test ingredients
+        ArrayList<String> resultIngredients = recipe.showIngredients();
+        assertEquals(resultIngredients.size(), ingredients.length);
+        for (int i = 0; i < resultIngredients.size(); i++) {
+            assertEquals(resultIngredients.get(i), ingredients[i]);
+        }
 	}
 }
