@@ -1,6 +1,9 @@
 package ca.teamTen.recitopia.test;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ca.teamTen.recitopia.Recipe;
 import junit.framework.TestCase;
 
@@ -18,7 +21,7 @@ public class RecipeTests extends TestCase
 	{
 		super.setUp();
 
-		recipe = new Recipe(name, ingredients, instructions, author);
+		recipe = new Recipe(name, new ArrayList<String>(Arrays.asList(ingredients)), instructions, author);
 	}
 
 	protected void tearDown() throws Exception
@@ -27,7 +30,7 @@ public class RecipeTests extends TestCase
 	}
 	
 	public void testConstructor() {
-		assertEquals(recipe.getName(), name);
-		assertEquals(recipe.getAuthor(), author);
+		assertEquals(recipe.getRecipeName(), name);
+		assertEquals(recipe.showAuthor(), author);
 	}
 }
