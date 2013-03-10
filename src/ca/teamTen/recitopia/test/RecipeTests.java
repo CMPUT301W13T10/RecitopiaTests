@@ -4,6 +4,8 @@ package ca.teamTen.recitopia.test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import android.util.Log;
+
 import ca.teamTen.recitopia.Photo;
 import ca.teamTen.recitopia.Recipe;
 import junit.framework.TestCase;
@@ -66,5 +68,17 @@ public class RecipeTests extends TestCase
 		
 		other = new Recipe(name, new ArrayList<String>(Arrays.asList(ingredients)), instructions, "wrong " + author);
 		assertTrue(!other.equalData(recipe));
+	}
+
+	public void testToString() {
+		assertTrue(recipe.toString().contains(name));
+		assertTrue(recipe.toString().contains(author));
+		assertTrue(recipe.toString().contains(instructions));
+		
+		Log.v("TOSTRING", recipe.toString());
+		
+		//Test for containing each ingredient
+		for(String s : new ArrayList<String>(Arrays.asList(ingredients)))
+			assertTrue(recipe.toString().contains(s));
 	}
 }
