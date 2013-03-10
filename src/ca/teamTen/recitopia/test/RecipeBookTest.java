@@ -42,17 +42,29 @@ public abstract class RecipeBookTest extends TestCase
 	public void testQueryByTitle()
 	{
 		addTestData();
-		assertEquals(recipeBook.query(null, "Spiky", null).length, 2);
-		assertEquals(recipeBook.query(null, "Soup", null).length, 1);
+		assertEquals(recipeBook.query("Spiky Melon").length, 4);
+		assertEquals(recipeBook.query("Soup").length, 1);
 
 		// search should be case-insensitive
-		assertEquals(recipeBook.query(null, "spiky", null).length, 2);
-
-		// don't search user field
-		assertEquals(recipeBook.query(null, "alex", null).length, 0);
+		assertEquals(recipeBook.query("soup").length, 1);
+	}
+	
+	public void testMixedQuery()
+	{
+		addTestData();
 		
-		// don't search ingredients field
-		assertEquals(recipeBook.query(null, "lettuce", null).length, 0);
+		for (Recipe queryBy: defaultRecipes) {
+			assertTrue(queryResultContains(recipeBook.query(queryBy.getRecipeName()), queryBy));
+			assertTrue(queryResultContains(recipeBook.query(
+					queryBy.getRecipeName() + " " + queryBy.showAuthor()
+					), queryBy));
+			assertTrue(queryResultContains(recipeBook.query(
+					queryBy.showIngredients() + " " + queryBy.showAuthor()
+					), queryBy));
+			assertTrue(queryResultContains(recipeBook.query(
+					queryBy.showCookingInstructions() + " " + queryBy.showIngredients().get(0)
+					), queryBy));
+		}
 	}
 	
 	public void testUpdatesRecipes()
@@ -66,10 +78,9 @@ public abstract class RecipeBookTest extends TestCase
 		
 		recipeBook.addRecipe(modifiedRecipe);
 		
-		Recipe[] results = recipeBook.query(null, modifiedRecipe.getRecipeName(),
-				modifiedRecipe.getRecipeName());
+		Recipe[] results = recipeBook.query(modifiedRecipe.getRecipeName());
 		assertEquals(results.length, 1);
-		assertEquals(results[0].showCookingInstructions(), newInstructions);
+		assertTrue(results[0].equalData(modifiedRecipe));
 		
 	}
 	
@@ -98,5 +109,15 @@ public abstract class RecipeBookTest extends TestCase
 		for (Recipe recipe: defaultRecipes) {
 			recipeBook.addRecipe(recipe);
 		}
+	}
+	
+	protected boolean queryResultContains(Recipe[] recipes, Recipe recipe) {
+		for (Recipe result: recipes) {
+			if (recipe.equalData(result)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }
