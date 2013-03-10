@@ -48,4 +48,23 @@ public class RecipeTests extends TestCase
             assertEquals(resultIngredients.get(i), ingredients[i]);
         }
 	}
+	
+	public void testEquals() {
+		assertTrue(recipe.equalData(recipe));
+		
+		Recipe other = new Recipe(name, new ArrayList<String>(Arrays.asList(ingredients)), instructions, author);
+		assertTrue(other.equalData(recipe));
+		
+		other = new Recipe("wrong " + name, new ArrayList<String>(Arrays.asList(ingredients)), instructions, author);
+		assertTrue(!other.equalData(recipe));
+		
+		other = new Recipe(name, null, instructions, author);
+		assertTrue(!other.equalData(recipe));
+		
+		other = new Recipe(name, new ArrayList<String>(Arrays.asList(ingredients)), "wrong " + instructions, author);
+		assertTrue(!other.equalData(recipe));
+		
+		other = new Recipe(name, new ArrayList<String>(Arrays.asList(ingredients)), instructions, "wrong " + author);
+		assertTrue(!other.equalData(recipe));
+	}
 }
