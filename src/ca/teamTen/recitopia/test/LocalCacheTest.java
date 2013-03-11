@@ -31,7 +31,7 @@ public class LocalCacheTest extends RecipeBookTest
 		
 		recipeBook.addRecipe(newRecipe);
 		
-		for (int i = 0; i < defaultRecipes.size(); i++) {
+		for (int i = 1; i <= defaultRecipes.size(); i++) {
 			Recipe recipe = defaultRecipes.get(recipeCount - i);
 			
 			if (i >= recipeCount) {
