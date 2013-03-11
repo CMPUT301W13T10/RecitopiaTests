@@ -44,9 +44,6 @@ public abstract class RecipeBookTest extends TestCase
 		addTestData();
 		assertEquals(recipeBook.query("Spiky Melon").length, 4);
 		assertEquals(recipeBook.query("Soup").length, 1);
-
-		// search should be case-insensitive
-		assertEquals(recipeBook.query("soup").length, 1);
 	}
 	
 	public void testMixedQuery()
@@ -78,7 +75,7 @@ public abstract class RecipeBookTest extends TestCase
 		
 		recipeBook.addRecipe(modifiedRecipe);
 		
-		Recipe[] results = recipeBook.query(modifiedRecipe.getRecipeName());
+		Recipe[] results = recipeBook.query(modifiedRecipe.showAuthor());
 		assertEquals(results.length, 1);
 		assertTrue(results[0].equalData(modifiedRecipe));
 		
