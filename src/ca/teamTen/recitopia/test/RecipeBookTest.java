@@ -10,8 +10,6 @@ import junit.framework.TestCase;
 /**
  * abstract RecipeBook junit tests
  *
- * TODO: test what happens when adding another recipe with the same
- * author and title.
  */
 public abstract class RecipeBookTest extends TestCase
 {
@@ -56,7 +54,7 @@ public abstract class RecipeBookTest extends TestCase
 					queryBy.getRecipeName() + " " + queryBy.showAuthor()
 					), queryBy));
 			assertTrue(queryResultContains(recipeBook.query(
-					queryBy.showIngredients() + " " + queryBy.showAuthor()
+					queryBy.showIngredients().get(0) + " " + queryBy.showAuthor()
 					), queryBy));
 			assertTrue(queryResultContains(recipeBook.query(
 					queryBy.showCookingInstructions() + " " + queryBy.showIngredients().get(0)
@@ -74,11 +72,10 @@ public abstract class RecipeBookTest extends TestCase
 				oldRecipe.showAuthor());
 		
 		recipeBook.addRecipe(modifiedRecipe);
+		Recipe results[] = recipeBook.query(modifiedRecipe.showAuthor());
 		
-		Recipe[] results = recipeBook.query(modifiedRecipe.showAuthor());
-		assertEquals(results.length, 1);
-		assertTrue(results[0].equalData(modifiedRecipe));
-		
+		assertTrue(queryResultContains(results, modifiedRecipe));
+		assertTrue(!queryResultContains(results, oldRecipe));		
 	}
 	
 	protected void generateDefaultRecipes()
