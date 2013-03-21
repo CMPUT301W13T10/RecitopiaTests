@@ -4,6 +4,8 @@ package ca.teamTen.recitopia.test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.google.gson.Gson;
+
 import android.util.Log;
 
 import ca.teamTen.recitopia.Photo;
@@ -11,6 +13,9 @@ import ca.teamTen.recitopia.Recipe;
 import junit.framework.TestCase;
 
 
+/*
+ * todo: add more comments
+ */
 public class RecipeTests extends TestCase
 {
 
@@ -80,5 +85,11 @@ public class RecipeTests extends TestCase
 		//Test for containing each ingredient
 		for(String s : new ArrayList<String>(Arrays.asList(ingredients)))
 			assertTrue(recipe.toString().contains(s));
+	}
+	
+	public void testJSONRoundtrip() {
+		Gson gson = new Gson();
+		Recipe result = gson.fromJson(gson.toJson(recipe), Recipe.class);
+		assertTrue(recipe.equalData(result));
 	}
 }
