@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import ca.teamTen.recitopia.CloudRecipeBook;
+import ca.teamTen.recitopia.LocalCache;
 import ca.teamTen.recitopia.Recipe;
 import ca.teamTen.recitopia.RecipeBook;
 
@@ -19,12 +20,34 @@ import ca.teamTen.recitopia.RecipeBook;
  */
 public class CloudRecipeBookTest extends RecipeBookTest
 {
-
+	private LocalCache cache;
+	
 	@Override
 	protected RecipeBook createRecipeBook() {
-		return new CloudRecipeBook();
+		cache = new LocalCache(defaultRecipes.size() + 5);
+		return new CloudRecipeBook(cache);
 	}
 
+	/*
+	 * Test that all results from a search in the CloudRecipeBook
+	 * should appear in the cache as well.
+	 */
+	public void testCaching() {
+		addTestData();
+		
+		Recipe[] cloudResults = recipeBook.query("spiky");
+		Recipe[] cacheResults = cache.query("spiky");
+		
+		assertEquals(cacheResults.length, cloudResults.length);
+		for (Recipe recipe: cloudResults) {
+			assertTrue(queryResultContains(cacheResults, recipe));
+		}
+	}
+	
+	/*
+	 * Test that the recipe urls are based on the recipe name and author,
+	 * since this pair should be unique among recipes.
+	 */
 	public void testRecipeURL() throws UnsupportedEncodingException {
 		CloudRecipeBook cloudBook = (CloudRecipeBook)recipeBook;
 		
