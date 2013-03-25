@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import ca.teamTen.recitopia.CloudRecipeBook;
-import ca.teamTen.recitopia.LocalCache;
+import ca.teamTen.recitopia.CacheRecipeBook;
 import ca.teamTen.recitopia.Recipe;
 import ca.teamTen.recitopia.RecipeBook;
 
@@ -20,11 +20,11 @@ import ca.teamTen.recitopia.RecipeBook;
  */
 public class CloudRecipeBookTest extends RecipeBookTest
 {
-	private LocalCache cache;
+	private CacheRecipeBook cache;
 	
 	@Override
 	protected RecipeBook createRecipeBook() {
-		cache = new LocalCache(defaultRecipes.size() + 5);
+		cache = new CacheRecipeBook(defaultRecipes.size() + 5);
 		return new CloudRecipeBook(cache);
 	}
 
