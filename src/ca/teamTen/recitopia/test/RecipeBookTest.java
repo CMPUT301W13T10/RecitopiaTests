@@ -67,17 +67,17 @@ public abstract class RecipeBookTest extends TestCase
 			
 			//query by recipe name and author
 			assertTrue(queryResultContains(recipeBook.query(
-					queryBy.getRecipeName() + " " + queryBy.showAuthor()
+					queryBy.getRecipeName() + " " + queryBy.getAuthor()
 					), queryBy));
 			
 			// query by first ingredient and author
 			assertTrue(queryResultContains(recipeBook.query(
-					queryBy.showIngredients().get(0) + " " + queryBy.showAuthor()
+					queryBy.getIngredients().get(0) + " " + queryBy.getAuthor()
 					), queryBy));
 			
 			// query by instructions and first ingredient
 			assertTrue(queryResultContains(recipeBook.query(
-					queryBy.showCookingInstructions() + " " + queryBy.showIngredients().get(0)
+					queryBy.getCookingInstructions() + " " + queryBy.getIngredients().get(0)
 					), queryBy));
 		}
 	}
@@ -93,11 +93,11 @@ public abstract class RecipeBookTest extends TestCase
 		Recipe oldRecipe = defaultRecipes.get(0);
 		String newInstructions = "these are not the same instructions";
 		Recipe modifiedRecipe = new Recipe(oldRecipe.getRecipeName(),
-				oldRecipe.showIngredients(), newInstructions,
-				oldRecipe.showAuthor());
+				oldRecipe.getIngredients(), newInstructions,
+				oldRecipe.getAuthor());
 		
 		recipeBook.addRecipe(modifiedRecipe);
-		Recipe results[] = recipeBook.query(modifiedRecipe.showAuthor());
+		Recipe results[] = recipeBook.query(modifiedRecipe.getAuthor());
 		
 		// the new recipe should be present, but the old one should not
 		assertTrue(queryResultContains(results, modifiedRecipe));

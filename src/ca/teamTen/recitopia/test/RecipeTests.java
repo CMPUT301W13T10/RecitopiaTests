@@ -54,11 +54,11 @@ public class RecipeTests extends TestCase
 	 */
 	public void testGetters() {
 		assertEquals(recipe.getRecipeName(), name);
-		assertEquals(recipe.showAuthor(), author);
-		assertEquals(recipe.showCookingInstructions(), instructions);
+		assertEquals(recipe.getAuthor(), author);
+		assertEquals(recipe.getCookingInstructions(), instructions);
 
         // test ingredients
-        ArrayList<String> resultIngredients = recipe.showIngredients();
+        ArrayList<String> resultIngredients = recipe.getIngredients();
         assertEquals(resultIngredients.size(), ingredients.length);
         for (int i = 0; i < resultIngredients.size(); i++) {
             assertEquals(resultIngredients.get(i), ingredients[i]);

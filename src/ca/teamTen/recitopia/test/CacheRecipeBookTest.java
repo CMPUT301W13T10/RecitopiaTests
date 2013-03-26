@@ -39,15 +39,15 @@ public class CacheRecipeBookTest extends RecipeBookTest
 			Recipe recipe = defaultRecipes.get(recipeCount - i);
 			
 			if (i >= recipeCount) {
-				assertEquals(recipeBook.query(recipe.showAuthor()).length, 0);
+				assertEquals(recipeBook.query(recipe.getAuthor()).length, 0);
 				// these recipes should not be present
 			} else {
-				assertEquals(recipeBook.query(recipe.showAuthor()).length, 1);
+				assertEquals(recipeBook.query(recipe.getAuthor()).length, 1);
 				// these recipes should be present
 			}
 		}
 		
-		assertEquals(recipeBook.query(newRecipe.showAuthor()).length, 1);
+		assertEquals(recipeBook.query(newRecipe.getAuthor()).length, 1);
 			// the new recipe should be present
 	}
 	

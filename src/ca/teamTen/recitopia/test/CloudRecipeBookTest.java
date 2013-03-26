@@ -56,6 +56,6 @@ public class CloudRecipeBookTest extends RecipeBookTest
 		
 		assertFalse(url.contains(" "));
 		assertTrue(url.contains(URLEncoder.encode(recipe.getRecipeName(), "UTF-8")));
-		assertTrue(url.contains(URLEncoder.encode(recipe.showAuthor(), "UTF-8")));
+		assertTrue(url.contains(URLEncoder.encode(recipe.getAuthor(), "UTF-8")));
 	}
 }
