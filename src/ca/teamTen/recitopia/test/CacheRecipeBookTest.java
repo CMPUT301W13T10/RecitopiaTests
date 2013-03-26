@@ -20,6 +20,10 @@ public class CacheRecipeBookTest extends RecipeBookTest
 		return new CacheRecipeBook(defaultRecipes.size());
 	}
 
+	/*
+	 * Test that adding another recipe beyond the test data
+	 * bumps out one of the old recipes.
+	 */
 	public void testSizeLimit() {
 		addTestData();
 		int recipeCount = defaultRecipes.size();

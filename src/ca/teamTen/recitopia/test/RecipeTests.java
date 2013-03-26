@@ -14,21 +14,24 @@ import junit.framework.TestCase;
 
 
 /*
- * todo: add more comments
+ * Recipe class unit tests
  */
 public class RecipeTests extends TestCase
 {
 
+	// data used in the recipe under test
 	private Recipe recipe;
 	private String name = "spiky melon salad";
 	private String ingredients[] = {"spiky melon", "spices", "salad dresing"};
 	private String instructions = "make a salad";
 	private String author = "Clark Kent";
 	
+	/*
+	 * Create a recipe with our test data before each test.
+	 */
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-
 		recipe = new Recipe(name, new ArrayList<String>(Arrays.asList(ingredients)), instructions, author);
 	}
 
@@ -37,12 +40,18 @@ public class RecipeTests extends TestCase
 		super.tearDown();
 	}
 	
+	/*
+	 * Test that photos are properly added.
+	 */
 	public void testAddPhoto() {
 		// assertEquals(recipe.getPhotos().length, 0);
 		// recipe.addPhotos(new Photo());
 		// assertEquals(recipe.getPhotos().length, 1);
 	}
 	
+	/*
+	 * Test getters give data matching the constructor.
+	 */
 	public void testGetters() {
 		assertEquals(recipe.getRecipeName(), name);
 		assertEquals(recipe.showAuthor(), author);
@@ -56,25 +65,38 @@ public class RecipeTests extends TestCase
         }
 	}
 	
+	/*
+	 * Test the equalData() method.
+	 */
 	public void testEquals() {
+		// recipe should equal itself
 		assertTrue(recipe.equalData(recipe));
 		
+		// recipe should equal another instance with the same data
 		Recipe other = new Recipe(name, new ArrayList<String>(Arrays.asList(ingredients)), instructions, author);
 		assertTrue(other.equalData(recipe));
 		
+		// recipe should not equal another instance with a different name
 		other = new Recipe("wrong " + name, new ArrayList<String>(Arrays.asList(ingredients)), instructions, author);
 		assertTrue(!other.equalData(recipe));
 		
+		// recipe should not equal if ingredients are different
 		other = new Recipe(name, null, instructions, author);
 		assertTrue(!other.equalData(recipe));
 		
+		// recipe should not equal if instructions are different
 		other = new Recipe(name, new ArrayList<String>(Arrays.asList(ingredients)), "wrong " + instructions, author);
 		assertTrue(!other.equalData(recipe));
 		
+		// recipe should not equal if author is different
 		other = new Recipe(name, new ArrayList<String>(Arrays.asList(ingredients)), instructions, "wrong " + author);
 		assertTrue(!other.equalData(recipe));
 	}
 
+	/*
+	 * Test that appropriate info is included in the result of
+	 * toString().
+	 */
 	public void testToString() {
 		assertTrue(recipe.toString().contains(name));
 		assertTrue(recipe.toString().contains(author));
@@ -87,6 +109,9 @@ public class RecipeTests extends TestCase
 			assertTrue(recipe.toString().contains(s));
 	}
 	
+	/*
+	 * Test that recipe -> json -> recipe is equal with itself
+	 */
 	public void testJSONRoundtrip() {
 		Gson gson = new Gson();
 		Recipe result = gson.fromJson(gson.toJson(recipe), Recipe.class);

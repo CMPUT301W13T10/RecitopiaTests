@@ -23,6 +23,11 @@ public abstract class RecipeBookTest extends TestCase
 	 */
 	protected ArrayList<Recipe> defaultRecipes;
 	
+	/*
+	 * Before each test, create the default recipes
+	 * and recipe book, then populate the book with
+	 * the recipes.
+	 */
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -37,6 +42,10 @@ public abstract class RecipeBookTest extends TestCase
 		super.tearDown();
 	}
 	
+	/*
+	 * Test that querying by title or title fragments returns
+	 * the expected number of recipes.
+	 */
 	public void testQueryByTitle()
 	{
 		addTestData();
@@ -44,24 +53,40 @@ public abstract class RecipeBookTest extends TestCase
 		assertEquals(recipeBook.query("Soup").length, 1);
 	}
 	
+	/*
+	 * For each recipe in our test data, test that it will be returned
+	 * in any queries we make using its data.
+	 */
 	public void testMixedQuery()
 	{
 		addTestData();
 		
 		for (Recipe queryBy: defaultRecipes) {
+			// query by recipe name
 			assertTrue(queryResultContains(recipeBook.query(queryBy.getRecipeName()), queryBy));
+			
+			//query by recipe name and author
 			assertTrue(queryResultContains(recipeBook.query(
 					queryBy.getRecipeName() + " " + queryBy.showAuthor()
 					), queryBy));
+			
+			// query by first ingredient and author
 			assertTrue(queryResultContains(recipeBook.query(
 					queryBy.showIngredients().get(0) + " " + queryBy.showAuthor()
 					), queryBy));
+			
+			// query by instructions and first ingredient
 			assertTrue(queryResultContains(recipeBook.query(
 					queryBy.showCookingInstructions() + " " + queryBy.showIngredients().get(0)
 					), queryBy));
 		}
 	}
-	
+
+	/*
+	 * Test that changing fields other than title and author, and then
+	 * re-adding the recipe modifies the recipe in-place, instead of
+	 * creating a new one.
+	 */
 	public void testUpdatesRecipes()
 	{
 		addTestData();
@@ -74,10 +99,15 @@ public abstract class RecipeBookTest extends TestCase
 		recipeBook.addRecipe(modifiedRecipe);
 		Recipe results[] = recipeBook.query(modifiedRecipe.showAuthor());
 		
+		// the new recipe should be present, but the old one should not
 		assertTrue(queryResultContains(results, modifiedRecipe));
 		assertTrue(!queryResultContains(results, oldRecipe));		
 	}
 	
+	/*
+	 * Generates a bunch of recipes and adds them to
+	 * defaultRecipes.
+	 */
 	protected void generateDefaultRecipes()
 	{
 		defaultRecipes.add(new Recipe("Spiky Melon Salad",
@@ -98,6 +128,10 @@ public abstract class RecipeBookTest extends TestCase
 			"zou@test.com"));
 	}
 	
+	/*
+	 * Add the test data from defaultRecipes to the
+	 * recipeBook under test.
+	 */
 	protected void addTestData()
 	{		
 		for (Recipe recipe: defaultRecipes) {
@@ -105,6 +139,10 @@ public abstract class RecipeBookTest extends TestCase
 		}
 	}
 	
+	/*
+	 * Tests whether a query result (an array of Recipes) contains
+	 * a given recipe, based on data-equality, not reference-equality.
+	 */
 	protected boolean queryResultContains(Recipe[] recipes, Recipe recipe) {
 		for (Recipe result: recipes) {
 			if (recipe.equalData(result)) {

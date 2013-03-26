@@ -13,10 +13,12 @@ import junit.framework.TestCase;
 public class FridgeTests extends TestCase {
 	private Fridge fridge;
 
+	/*
+	 * Create a new fridge before each test
+	 */
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		
 		fridge = new Fridge();
 	}
 	
@@ -25,6 +27,9 @@ public class FridgeTests extends TestCase {
 		super.tearDown();
 	}
 	
+	/*
+	 * Test that adding a single ingredient works.
+	 */
 	public void testAddSingleIngredient()
 	{
 		int initialCount = fridge.countIngredients();
@@ -34,6 +39,9 @@ public class FridgeTests extends TestCase {
 		assertEquals(hasIngredient("spiky melon"), true);
 	}
 	
+	/*
+	 * Test that ingredients can be removed.
+	 */
 	public void testRemoveIngredient()
 	{
 		assertEquals(fridge.addIngredient("spiky melon"), true);
@@ -43,6 +51,9 @@ public class FridgeTests extends TestCase {
 		assertEquals(hasIngredient("spiky melon"), false);
 	}
 	
+	/*
+	 * Test that duplicate ingredients are removed.
+	 */
 	public void testAddDuplicateIngredient()
 	{
 		int initialCount = fridge.countIngredients();
@@ -53,6 +64,9 @@ public class FridgeTests extends TestCase {
 		assertEquals(fridge.countIngredients(), initialCount + 1);
 	}
 	
+	/*
+	 * Utility method to check whether the fridge has an ingredient
+	 */
 	private boolean hasIngredient(String ingredient)
 	{
 		Collection<String> ingredients = fridge.getIngredients();
