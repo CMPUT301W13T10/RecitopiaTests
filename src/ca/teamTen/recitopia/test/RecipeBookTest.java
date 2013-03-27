@@ -81,6 +81,23 @@ public abstract class RecipeBookTest extends TestCase
 					), queryBy));
 		}
 	}
+	
+	/*
+	 * Test that searching is case-insensitive
+	 */
+	public void testCaseInsensitiveQuerying()
+	{
+		addTestData();
+		for (Recipe queryBy: defaultRecipes) {
+			String name = queryBy.getRecipeName();
+			
+			// query by lowercase recipe name
+			assertTrue(queryResultContains(recipeBook.query(name.toLowerCase()), queryBy));
+			
+			// query by uppercase recipe name
+			assertTrue(queryResultContains(recipeBook.query(name.toUpperCase()), queryBy));
+		}
+	}
 
 	/*
 	 * Test that changing fields other than title and author, and then
