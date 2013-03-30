@@ -9,7 +9,7 @@ import java.io.OutputStream;
 import ca.teamTen.recitopia.Recipe;
 import ca.teamTen.recitopia.RecipeBook;
 import ca.teamTen.recitopia.SimpleRecipeBook;
-import ca.teamTen.recitopia.SimpleRecipeBook.IOFactory;
+import ca.teamTen.recitopia.IOFactory;
 
 public class SimpleRecipeBookTest extends RecipeBookTest {
 

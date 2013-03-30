@@ -2,9 +2,12 @@ package ca.teamTen.recitopia.test;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.Random;
 
 import ca.teamTen.recitopia.CloudRecipeBook;
 import ca.teamTen.recitopia.CacheRecipeBook;
+import ca.teamTen.recitopia.Photo;
 import ca.teamTen.recitopia.Recipe;
 import ca.teamTen.recitopia.RecipeBook;
 
@@ -45,6 +48,24 @@ public class CloudRecipeBookTest extends RecipeBookTest
 	}
 	
 	/*
+	 * Test that serializing/deserializing photos works
+	 */
+	public void testPhotoSerialization(){
+		byte[] fakePhoto = generateFakePhoto();
+		defaultRecipes.get(0).addPhoto(new Photo(fakePhoto));
+		Recipe recipe = defaultRecipes.get(0);
+		CloudRecipeBook cloudbook = (CloudRecipeBook)recipeBook;
+		String recipeAsJSON = cloudbook.recipeToJson(recipe);
+		
+		Recipe recipe2 = cloudbook.recipeFromJson(recipeAsJSON);
+		byte[] fakePhoto2 = recipe2.getPhotos()[0].getByteImage();
+		
+		assertTrue(Arrays.equals(fakePhoto, fakePhoto2));
+		assertTrue(fakePhoto.length == fakePhoto2.length);
+		
+	}
+	
+	/*
 	 * Test that the recipe urls are based on the recipe name and author,
 	 * since this pair should be unique among recipes.
 	 */
@@ -57,5 +78,15 @@ public class CloudRecipeBookTest extends RecipeBookTest
 		assertFalse(url.contains(" "));
 		assertTrue(url.contains(URLEncoder.encode(recipe.getRecipeName(), "UTF-8")));
 		assertTrue(url.contains(URLEncoder.encode(recipe.getAuthor(), "UTF-8")));
+	}
+	
+	/*
+	 * Generates a fake Photo
+	 */
+	protected byte[] generateFakePhoto(){
+		byte[] fakePhoto = new byte[10000];
+		Random random = new Random();
+		random.nextBytes(fakePhoto);
+		return fakePhoto;
 	}
 }
