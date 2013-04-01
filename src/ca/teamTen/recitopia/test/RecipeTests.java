@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 
 import android.util.Log;
 
-import ca.teamTen.recitopia.Photo;
 import ca.teamTen.recitopia.Recipe;
 import junit.framework.TestCase;
 
@@ -41,12 +40,16 @@ public class RecipeTests extends TestCase
 	}
 	
 	/*
-	 * Test that photos are properly added.
+	 * Test that the constructor for GSON (Recipe(boolean isPublished))
+	 * works as expected.
 	 */
-	public void testAddPhoto() {
-		// assertEquals(recipe.getPhotos().length, 0);
-		// recipe.addPhotos(new Photo());
-		// assertEquals(recipe.getPhotos().length, 1);
+	public void testPublishingConstructor()
+	{
+		recipe = new Recipe(true);
+		assertTrue(recipe.publishRecipe());
+		
+		recipe = new Recipe(false);
+		assertFalse(recipe.publishRecipe());
 	}
 	
 	/*
