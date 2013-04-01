@@ -66,6 +66,20 @@ public class CloudRecipeBookTest extends RecipeBookTest
 	}
 	
 	/*
+	 * Test that CloudRecipeBook ignores Recipe.isPublished
+	 */
+	public void testIsPublishedIgnored() {
+		// isPublished should not be added to the JSON
+		Recipe recipe = defaultRecipes.get(0);
+		CloudRecipeBook cloudBook = (CloudRecipeBook)recipeBook;
+		assertFalse(cloudBook.recipeToJson(recipe).contains("isPublished"));
+		
+		// after deserialization, isPublished should always be true
+		Recipe roundTripped = cloudBook.recipeFromJson(cloudBook.recipeToJson(recipe));
+		assertTrue(roundTripped.publishRecipe());
+	}
+	
+	/*
 	 * Test that the recipe urls are based on the recipe name and author,
 	 * since this pair should be unique among recipes.
 	 */
