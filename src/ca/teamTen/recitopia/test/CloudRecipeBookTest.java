@@ -79,6 +79,14 @@ public class CloudRecipeBookTest extends RecipeBookTest
 		assertTrue(roundTripped.publishRecipe());
 	}
 	
+	public void testQueryResultsArePublished() {
+		addTestData();
+		Recipe[] recipes = recipeBook.query("spiky");
+		for (Recipe recipe: recipes) {
+			assertTrue(recipe.publishRecipe());
+		}
+	}
+	
 	/*
 	 * Test that the recipe urls are based on the recipe name and author,
 	 * since this pair should be unique among recipes.
