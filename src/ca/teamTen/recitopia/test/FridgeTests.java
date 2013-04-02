@@ -2,7 +2,7 @@ package ca.teamTen.recitopia.test;
 
 import java.util.Collection;
 
-import ca.teamTen.recitopia.Fridge;
+import ca.teamTen.recitopia.models.Fridge;
 import junit.framework.TestCase;
 
 /*

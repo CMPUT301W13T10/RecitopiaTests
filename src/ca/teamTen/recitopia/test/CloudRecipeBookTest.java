@@ -5,11 +5,11 @@ import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.Random;
 
-import ca.teamTen.recitopia.CloudRecipeBook;
-import ca.teamTen.recitopia.CacheRecipeBook;
-import ca.teamTen.recitopia.Photo;
-import ca.teamTen.recitopia.Recipe;
-import ca.teamTen.recitopia.RecipeBook;
+import ca.teamTen.recitopia.models.Photo;
+import ca.teamTen.recitopia.models.CacheRecipeBook;
+import ca.teamTen.recitopia.models.CloudRecipeBook;
+import ca.teamTen.recitopia.models.Recipe;
+import ca.teamTen.recitopia.models.RecipeBook;
 
 
 /**

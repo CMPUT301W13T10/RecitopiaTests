@@ -3,9 +3,9 @@ package ca.teamTen.recitopia.test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import ca.teamTen.recitopia.CacheRecipeBook;
-import ca.teamTen.recitopia.Recipe;
-import ca.teamTen.recitopia.RecipeBook;
+import ca.teamTen.recitopia.models.CacheRecipeBook;
+import ca.teamTen.recitopia.models.Recipe;
+import ca.teamTen.recitopia.models.RecipeBook;
 
 /**
  * jUnit tests for LocalCache RecipeBook.

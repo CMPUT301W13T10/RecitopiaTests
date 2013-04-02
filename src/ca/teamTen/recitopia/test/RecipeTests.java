@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 
 import android.util.Log;
 
-import ca.teamTen.recitopia.Recipe;
+import ca.teamTen.recitopia.models.Recipe;
 import junit.framework.TestCase;
 
 
