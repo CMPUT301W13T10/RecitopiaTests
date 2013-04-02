@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import ca.teamTen.recitopia.CloudRecipeBook;
-import ca.teamTen.recitopia.Photo;
+import android.annotation.SuppressLint;
 import ca.teamTen.recitopia.Recipe;
 import ca.teamTen.recitopia.RecipeBook;
 import junit.framework.TestCase;
@@ -14,6 +13,7 @@ import junit.framework.TestCase;
  * abstract RecipeBook junit tests
  *
  */
+@SuppressLint("DefaultLocale")
 public abstract class RecipeBookTest extends TestCase
 {
 
